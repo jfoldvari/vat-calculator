@@ -1,17 +1,21 @@
-package com.interview.vatcalculator.web.api;
-
-import io.swagger.v3.oas.annotations.Parameter;
+package com.interview.vatcalculator.service.model;
 
 public class VatCalculatorQuery {
 
-    @Parameter
     private Double net;
-    @Parameter
+
     private Double vat;
-    @Parameter
+
     private Double gross;
-    @Parameter
+
     private Double rate;
+
+    public VatCalculatorQuery(Double net, Double vat, Double gross, Double rate) {
+        this.net = net;
+        this.vat = vat;
+        this.gross = gross;
+        this.rate = rate;
+    }
 
     public Double getNet() {
         return net;
@@ -44,5 +48,4 @@ public class VatCalculatorQuery {
     public void setRate(Double rate) {
         this.rate = rate;
     }
-
 }

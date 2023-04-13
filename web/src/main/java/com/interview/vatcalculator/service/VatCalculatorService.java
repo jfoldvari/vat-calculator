@@ -1,8 +1,6 @@
 package com.interview.vatcalculator.service;
 
-import com.interview.vatcalculator.web.api.VatCalculatorResponse;
-import com.interview.vatcalculator.validation.VatCalculatorValidator;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.interview.vatcalculator.service.model.Amounts;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -12,39 +10,36 @@ import static com.interview.vatcalculator.service.utils.RoundUtils.round;
 @Component
 public class VatCalculatorService {
 
-    @Autowired
-    private VatCalculatorValidator validator;
+    public Amounts calculateVat(Double net, Double vat, Double gross, Double rate) {
 
-    public VatCalculatorResponse calculateVat(Double net, Double vat, Double gross, Double rate) {
-
-        VatCalculatorResponse response = null;
+        Amounts amounts = null;
         if (Optional.ofNullable(net).isPresent()) {
-            response = calculateVatAndGross(net, rate);
+            amounts = calculateVatAndGross(net, rate);
         } else if (Optional.ofNullable(vat).isPresent()) {
-            response = calculateNetAndGross(vat, rate);
+            amounts = calculateNetAndGross(vat, rate);
         } else if (Optional.ofNullable(gross).isPresent()) {
-            response = calculateNetAndVat(gross, rate);
+            amounts = calculateNetAndVat(gross, rate);
         }
 
-        return response;
+        return amounts;
     }
 
-    private VatCalculatorResponse calculateVatAndGross(Double net, Double rate) {
+    private Amounts calculateVatAndGross(Double net, Double rate) {
         var vat = calculateVatFromNet(net, rate);
-        return new VatCalculatorResponse(net,
+        return new Amounts(net,
                 vat,
                 calculateGrossFromVat(vat, rate));
     }
 
-    private VatCalculatorResponse calculateNetAndGross(Double vat, Double rate) {
-        return new VatCalculatorResponse(calculateNetFromVat(vat, rate),
+    private Amounts calculateNetAndGross(Double vat, Double rate) {
+        return new Amounts(calculateNetFromVat(vat, rate),
                 vat,
                 calculateGrossFromVat(vat, rate));
     }
 
-    private VatCalculatorResponse calculateNetAndVat(Double gross, Double rate) {
+    private Amounts calculateNetAndVat(Double gross, Double rate) {
         var net = calculateNetFromGross(gross, rate);
-        return new VatCalculatorResponse(net,
+        return new Amounts(net,
                 calculateVatFromNet(net, rate),
                 gross);
     }
@@ -64,5 +59,4 @@ public class VatCalculatorService {
     private Double calculateNetFromGross(Double gross, Double rate) {
         return round(gross / (1 + rate / 100));
     }
-
 }

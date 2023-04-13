@@ -23,19 +23,20 @@ public class CustomSteps {
         try {
             lastResponse = new RestTemplate().exchange("http://localhost:8080" + url, HttpMethod.GET, null,
                     String.class);
-        } catch (HttpClientErrorException httpClientErrorException) {
-            httpClientErrorException.printStackTrace();
+        } catch (HttpClientErrorException ex) {
+            lastResponse = new ResponseEntity<>(ex.getResponseBodyAsString(), ex.getStatusCode());
         }
     }
 
     @Then("response status code is {int}")
-    public void thenStatusCode(Integer expected) {
-        assertThat("status code is" + expected,
-                expected.equals(lastResponse.getStatusCodeValue()));
+    public void thenStatusCodeIs(Integer expected) {
+        var statusCode = lastResponse.getStatusCodeValue();
+        assertThat("status code is " + statusCode,
+                expected.equals(statusCode));
     }
 
-    @Then("returned string should be {string}")
-    public void thenStringIs(String expected) {
+    @Then("returned response body should be {string}")
+    public void thenResponseBodyIs(String expected) {
         Assertions.assertEquals(expected, lastResponse.getBody());
     }
 

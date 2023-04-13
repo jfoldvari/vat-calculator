@@ -1,28 +1,30 @@
 package com.interview.vatcalculator.web.api;
 
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.interview.vatcalculator.service.model.Amounts;
+import com.interview.vatcalculator.validation.model.Error;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class VatCalculatorResponse {
 
-    private final Double net;
-    private final Double vat;
-    private final Double gross;
+    private Amounts amounts;
 
-    public VatCalculatorResponse(Double net, Double vat, Double gross) {
-        this.net = net;
-        this.vat = vat;
-        this.gross = gross;
+    private Error error;
+
+    public VatCalculatorResponse(Amounts amounts) {
+        this.amounts = amounts;
     }
 
-    public Double getNet() {
-        return net;
+    public VatCalculatorResponse(Error error) {
+        this.error = error;
     }
 
-    public Double getVat() {
-        return vat;
+    public Amounts getAmounts() {
+        return amounts;
     }
 
-    public Double getGross() {
-        return gross;
+    public Error getError() {
+        return error;
     }
-
 }
