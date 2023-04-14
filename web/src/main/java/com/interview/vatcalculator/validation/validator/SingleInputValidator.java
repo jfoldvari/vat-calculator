@@ -11,8 +11,11 @@ public class SingleInputValidator implements ConstraintValidator<SingleInputCons
 
     @Override
     public boolean isValid(VatCalculatorRequest vatCalculatorRequest, ConstraintValidatorContext context) {
-        return Objects.nonNull(vatCalculatorRequest.getNet())
-                ^ Objects.nonNull(vatCalculatorRequest.getVat())
-                ^ Objects.nonNull(vatCalculatorRequest.getGross());
+        var isNetProvided = Objects.nonNull(vatCalculatorRequest.getNet());
+        var isVatProvided = Objects.nonNull(vatCalculatorRequest.getVat());
+        var isGrossProvided = Objects.nonNull(vatCalculatorRequest.getGross());
+
+        return (isNetProvided ^ isVatProvided ^ isGrossProvided)
+                ^ (isNetProvided && isVatProvided && isGrossProvided);
     }
 }

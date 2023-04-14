@@ -1,7 +1,7 @@
 package com.interview.vatcalculator.validation;
 
-import com.interview.vatcalculator.validation.constraint.SingleInputConstraint;
 import com.interview.vatcalculator.validation.constraint.AmountConstraint;
+import com.interview.vatcalculator.validation.constraint.SingleInputConstraint;
 import com.interview.vatcalculator.validation.constraint.VatRateConstraint;
 import com.interview.vatcalculator.validation.exception.ValidationException;
 import com.interview.vatcalculator.validation.model.Error;
@@ -47,6 +47,6 @@ public class VatCalculatorRequestValidator {
     private VatCalculatorError fromViolation(ConstraintViolation<VatCalculatorRequest> violation) {
         return Optional.ofNullable(constraintsToErrors
                         .get(violation.getConstraintDescriptor().getAnnotation().annotationType()))
-                .orElse(com.interview.vatcalculator.validation.VatCalculatorError.GENERIC_INPUT_ERROR);
+                .orElse(VatCalculatorError.GENERIC_INPUT_ERROR);
     }
 }

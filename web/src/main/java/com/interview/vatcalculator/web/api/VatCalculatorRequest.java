@@ -25,6 +25,16 @@ public class VatCalculatorRequest {
     @VatRateConstraint
     private String rate;
 
+    public VatCalculatorRequest() {
+    }
+
+    public VatCalculatorRequest(String net, String vat, String gross, String rate) {
+        this.net = net;
+        this.vat = vat;
+        this.gross = gross;
+        this.rate = rate;
+    }
+
     public String getNet() {
         return net;
     }

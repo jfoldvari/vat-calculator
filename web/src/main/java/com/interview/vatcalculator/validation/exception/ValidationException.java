@@ -1,4 +1,5 @@
 package com.interview.vatcalculator.validation.exception;
+
 import com.interview.vatcalculator.validation.model.Error;
 
 public class ValidationException extends RuntimeException {

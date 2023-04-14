@@ -12,7 +12,7 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface SingleInputConstraint {
-    String message() default "More than one input. Either net, VAT or gross amount has to be provided.";
+    String message() default "Zero or more than one input. Either net, VAT or gross amount has to be provided.";
 
     Class<?>[] groups() default {};
 

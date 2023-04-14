@@ -12,7 +12,7 @@ import java.lang.annotation.*;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface VatRateConstraint {
-    String message() default "VAT rate is missing or invalid.";
+    String message() default "Missing or invalid VAT rate. Valid VAT rates are 10, 13 and 20 percent.";
 
     Class<?>[] groups() default {};
 

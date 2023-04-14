@@ -17,20 +17,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 public interface VatCalculatorEndpoint {
 
-    @Operation(description = "Calculates amounts based on either net, vat or gross amount " +
+    @Operation(description = "Calculates amounts based on either net, VAT or gross amount " +
             "and a valid Austrian VAT rate.",
             parameters = {
                     @Parameter(in = ParameterIn.QUERY, name = "net", description = "Net amount.",
-                            schema = @Schema(implementation = Double.class)),
+                            schema = @Schema(implementation = String.class)),
                     @Parameter(in = ParameterIn.QUERY, name = "vat", description = "VAT amount.",
-                            schema = @Schema(implementation = Double.class)),
+                            schema = @Schema(implementation = String.class)),
                     @Parameter(in = ParameterIn.QUERY, name = "gross", description = "Gross amount.",
-                            schema = @Schema(implementation = Double.class)),
+                            schema = @Schema(implementation = String.class)),
                     @Parameter(in = ParameterIn.QUERY, name = "rate", description = "VAT rate.",
-                            schema = @Schema(implementation = Double.class)),
+                            schema = @Schema(implementation = String.class), required = true),
             },
             responses = {
-                    @ApiResponse(responseCode = "200", description = "Amounts successfully retrieved.",
+                    @ApiResponse(responseCode = "200", description = "Amounts successfully calculated.",
                             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     schema = @Schema(implementation = VatCalculatorResponse.class))),
                     @ApiResponse(responseCode = "400", description = "Invalid data in request.",

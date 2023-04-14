@@ -19,10 +19,10 @@ import static com.interview.vatcalculator.web.mapper.VatCalculatorQueryMapper.to
 public class VatCalculatorController implements VatCalculatorEndpoint {
 
     @Autowired
-    private VatCalculatorService service;
+    private VatCalculatorRequestValidator validator;
 
     @Autowired
-    private VatCalculatorRequestValidator validator;
+    private VatCalculatorService service;
 
     @Override
     public ResponseEntity<VatCalculatorResponse> calculateAmounts(@ParameterObject VatCalculatorRequest request) {
@@ -31,16 +31,16 @@ public class VatCalculatorController implements VatCalculatorEndpoint {
         try {
             validator.validate(request);
             var query = toVatCalculatorQuery(request);
-            response = new ResponseEntity<>(getSuccessfulResponse(query), HttpStatus.OK);
+            response = new ResponseEntity<>(createSuccessfulResponse(query), HttpStatus.OK);
 
         } catch (ValidationException ex) {
-            response = new ResponseEntity<>(getErrorResponse(ex.getError()), HttpStatus.BAD_REQUEST);
+            response = new ResponseEntity<>(createErrorResponse(ex.getError()), HttpStatus.BAD_REQUEST);
         }
 
         return response;
     }
 
-    private VatCalculatorResponse getSuccessfulResponse(VatCalculatorQuery query) {
+    private VatCalculatorResponse createSuccessfulResponse(VatCalculatorQuery query) {
         return new VatCalculatorResponse(
                 service.calculateVat(query.getNet(),
                         query.getVat(),
@@ -48,7 +48,7 @@ public class VatCalculatorController implements VatCalculatorEndpoint {
                         query.getRate()));
     }
 
-    private VatCalculatorResponse getErrorResponse(Error error) {
+    private VatCalculatorResponse createErrorResponse(Error error) {
         return new VatCalculatorResponse(error);
     }
 }

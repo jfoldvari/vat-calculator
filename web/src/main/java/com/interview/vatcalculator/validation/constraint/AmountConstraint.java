@@ -12,7 +12,7 @@ import java.lang.annotation.*;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface AmountConstraint {
-    String message() default "Amount is missing or invalid.";
+    String message() default "Missing or invalid amount.";
 
     Class<?>[] groups() default {};
 
