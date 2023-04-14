@@ -66,5 +66,4 @@ public class VatCalculatorRequest {
     public void setRate(String rate) {
         this.rate = rate;
     }
-
 }

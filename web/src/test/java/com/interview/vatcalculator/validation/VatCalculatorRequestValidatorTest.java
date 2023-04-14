@@ -45,7 +45,7 @@ class VatCalculatorRequestValidatorTest {
     private VatCalculatorRequestValidator vatCalculatorRequestValidator;
 
     @Test
-    void should_not_throw_validation_exception() {
+    void should_not_throw_validation_exception_when_no_constraint_violation_exists() {
 
         when(validator.validate(REQUEST_TO_VALIDATE)).thenReturn(Set.of());
 
@@ -53,7 +53,7 @@ class VatCalculatorRequestValidatorTest {
     }
 
     @Test
-    void should_throw_validation_exception_when_constraint_violation_exist() {
+    void should_throw_validation_exception_when_constraint_violation_exists() {
 
         when(constraintViolation.getConstraintDescriptor()).thenReturn(constraintDescriptor);
         when(constraintDescriptor.getAnnotation()).thenReturn(secondAnnotation);

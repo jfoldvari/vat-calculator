@@ -39,5 +39,4 @@ public class CustomSteps {
     public void thenResponseBodyIs(String expected) {
         Assertions.assertEquals(expected, lastResponse.getBody());
     }
-
 }

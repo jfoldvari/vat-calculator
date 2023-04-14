@@ -1,4 +1,4 @@
-Feature: VAT Calculator
+Feature: VAT calculator
 
   Scenario: VAT and gross amounts are successfully calculated
     When the client calls endpoint "/calculate?net=19.543&rate=20"
