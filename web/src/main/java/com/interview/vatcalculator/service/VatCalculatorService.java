@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
-import static com.interview.vatcalculator.service.utils.RoundUtils.round;
+import static com.interview.vatcalculator.service.utils.TruncationUtils.truncate;
 
 @Component
 public class VatCalculatorService {
@@ -27,36 +27,36 @@ public class VatCalculatorService {
     private Amounts calculateVatAndGross(Double net, Double rate) {
         var vat = calculateVatFromNet(net, rate);
         return new Amounts(net,
-                vat,
-                calculateGrossFromVat(vat, rate));
+                truncate(vat),
+                truncate(calculateGrossFromVat(vat, rate)));
     }
 
     private Amounts calculateNetAndGross(Double vat, Double rate) {
-        return new Amounts(calculateNetFromVat(vat, rate),
+        return new Amounts(truncate(calculateNetFromVat(vat, rate)),
                 vat,
-                calculateGrossFromVat(vat, rate));
+                truncate(calculateGrossFromVat(vat, rate)));
     }
 
     private Amounts calculateNetAndVat(Double gross, Double rate) {
         var net = calculateNetFromGross(gross, rate);
-        return new Amounts(net,
-                calculateVatFromNet(net, rate),
+        return new Amounts(truncate(net),
+                truncate(calculateVatFromNet(net, rate)),
                 gross);
     }
 
     private Double calculateVatFromNet(Double net, Double rate) {
-        return round((net * rate) / 100);
+        return (net * rate) / 100;
     }
 
     private Double calculateNetFromVat(Double vat, Double rate) {
-        return round(vat / (rate / 100));
+        return vat / (rate / 100);
     }
 
     private Double calculateGrossFromVat(Double vat, Double rate) {
-        return round(vat / (rate / 100) + vat);
+        return vat / (rate / 100) + vat;
     }
 
     private Double calculateNetFromGross(Double gross, Double rate) {
-        return round(gross / (1 + rate / 100));
+        return gross / (1 + rate / 100);
     }
 }

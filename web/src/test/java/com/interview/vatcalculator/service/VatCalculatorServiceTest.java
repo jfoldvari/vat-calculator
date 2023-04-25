@@ -45,7 +45,11 @@ class VatCalculatorServiceTest {
 
                     Arguments.of(null, null, 110d, 10d, new Amounts(100d, 10d, 110d)),
                     Arguments.of(null, null, 113d, 13d, new Amounts(100d, 13d, 113d)),
-                    Arguments.of(null, null, 156.98d, 20d, new Amounts(130.82d, 26.16d, 156.98d))
+                    Arguments.of(null, null, 156.98d, 20d, new Amounts(130.82d, 26.16d, 156.98d)),
+
+                    Arguments.of(0.01d, null, null, 20d, new Amounts(0.01d, 0d, 0.01d)),
+                    Arguments.of(null, null, 0.01d, 20d, new Amounts(0.01d, 0d, 0.01d)),
+                    Arguments.of(null, 0.01d, null, 20d, new Amounts(0.05d, 0.01d, 0.06d))
             );
         }
     }
