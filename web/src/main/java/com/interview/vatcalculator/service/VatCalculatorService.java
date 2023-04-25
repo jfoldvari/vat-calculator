@@ -45,18 +45,18 @@ public class VatCalculatorService {
     }
 
     private Double calculateVatFromNet(Double net, Double rate) {
-        return (net * rate) / 100;
+        return (net * rate) / 100d;
     }
 
     private Double calculateNetFromVat(Double vat, Double rate) {
-        return vat / (rate / 100);
+        return vat / (rate / 100d);
     }
 
     private Double calculateGrossFromVat(Double vat, Double rate) {
-        return vat / (rate / 100) + vat;
+        return vat / (rate / 100d) + vat;
     }
 
     private Double calculateNetFromGross(Double gross, Double rate) {
-        return gross / (1 + rate / 100);
+        return gross / (1d + rate / 100d);
     }
 }
